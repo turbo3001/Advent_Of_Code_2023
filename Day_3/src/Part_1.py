@@ -67,8 +67,8 @@ for i in range( numRows ):
     for j in range( len( currRow ) ):
         if currRow[j].type == SymbolType.SYMBOL:
             #print(f'Symbol found at ({i}, {j})')
-            for iOffset in range(0,3):
-                for jOffset in range(0,3):
+            for iOffset in range(3):
+                for jOffset in range(3):
                     offSetI = i + ( iOffset - 1 )
                     offsetJ = j + ( jOffset - 1 )
                     #print( f'i = {i}, iOffset = {iOffset-1}, j = {j}, jOffset = {jOffset-1}')
