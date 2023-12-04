@@ -1,0 +1,3 @@
+Solution,    Result
+2784064,     Too Low
+6050769,     Spot On!
