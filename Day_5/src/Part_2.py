@@ -9,6 +9,9 @@ class MappingEntry():
         return f'src: [{self.srcRangeStart} -> {self.srcRangeStart + self.length-1}], dest: [{self.destRangeStart} -> {self.destRangeStart + self.length-1}]'
     def __repr__(self) -> str:
         return str(self)
+    def __lt__(self, other) -> bool:
+        return self.srcRangeStart < other.srcRangeStart
+    
     def GetDestFromSrc(self, src):
         src = int(src)
         if src < self.srcRangeStart or src >= self.srcRangeStart + self.length:
@@ -52,6 +55,10 @@ class Almanac():
 
     def GetMappings( self, type ) -> list:
         return self.mapping[type]
+    
+    def sort(self) -> None:
+        for mappingKey in self.mapping:
+            self.mapping[mappingKey].sort()
         
 
 def ParseAlmanac( filename ):
@@ -77,6 +84,7 @@ def ParseAlmanac( filename ):
         elif len(lineData[0].strip()) > 0:
             mappingData = lineData[0].split()
             almanac.AddMapping( currentType, MappingEntry(mappingData[0], mappingData[1], mappingData[2]) )
+    almanac.sort()
     return almanac
         
          
@@ -96,7 +104,7 @@ for seed in almanac.seedList:
                 if newDest >= 0:
                     currentSrc = newDest
                     break
-            #print(f'{i} {mappingKey}: [{initialSrc}] -> [{currentSrc}]')
+            print(f'{i} {mappingKey}: [{initialSrc}] -> [{currentSrc}]')
         if currentSrc < lowestLocation:
             lowestLocation = currentSrc
         i += 1
